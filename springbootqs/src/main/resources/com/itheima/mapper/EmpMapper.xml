@@ -3,6 +3,14 @@
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.itheima.mapper.EmpMapper">
+    <sql id="commonselect">
+        select id, username, password, name, gender, image, job, entrydate, dept_id, create_time, update_time
+        from emp
+    </sql>
+    <!--
+    <sql>定义可重用的sql片段
+    <include>通过属性refid，指定包含的sql片段
+ -->
     <!--
     XML映射文件的名称与Mapper接口名称一致，并且将XML映射文件和Mapper接口放置在相同包下。
     XML映射文件的namespace属性为Mapper接口全限定名一致。
@@ -11,7 +19,46 @@
         XML映射文件中sql语句的id与Mapper接口中的方法名一致，并保持返回类型一致。
     -->
     <select id="list" resultType="com.itheima.pojo.Emp">
-        select *from emp where name like concat('%'+#{name}+'%') and gender =#{gender}
-            and entrydate between #{begin} and #{end} order by update_time desc
+        <include refid="commonselect"></include>
+        <where> <!-- where元素只会在子元素有内容的情况下插入where子句。而且会自动去除开头的AND或者OR -->
+            <if test="name != null">
+                name like concat('%', #{name}, '%')
+            </if>
+            <if test="gender !=null">
+                and gender = #{gender}
+            </if>
+            <if test="begin !=null and end !=null">
+                and entrydate between
+                #{begin} and #{end}
+            </if>
+        </where>
+        order by update_time desc
     </select>
+    <update id="update2">
+        update emp
+        <set><!-- 动态添加set关键字自动去除"," -->
+            <if test="username!=null">username=#{username},</if>
+            <if test="name!=null">name=#{name},</if>
+            <if test="gender!=null">gender=#{gender},</if>
+            <if test="image!=null">image=#{image},</if>
+            <if test="job!=null">job=#{job},</if>
+            <if test="entrydate!=null">entrydate = #{entrydate},</if>
+            <if test="deptId!=null">dept_id=#{deptId},</if>
+            <if test="updateTime!=null">update_time=#{updateTime}</if>
+        </set>
+        where id = #{id}
+    </update>
+    <!-- 批量删除 (1,2,3,4,5,6,7,8,9,10)
+        collection:要遍历的集合
+        item:遍历的元素
+        separate：分隔符
+        open：遍历开始前拼接的SQL字段
+        close：遍历结束拼接的SQL字段
+     -->
+    <delete id="deleteByIds">
+        delete from emp where id in 
+                        <foreach collection="ids" item="id" separator="," open="(" close=")">
+                            #{id}
+                        </foreach>
+    </delete>
 </mapper>

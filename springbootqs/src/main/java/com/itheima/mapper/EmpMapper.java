@@ -33,6 +33,7 @@ public  int insert(Emp emp);
             "entrydate=#{entrydate},dept_id=#{deptId},update_time=#{updateTime} where id=#{id}")
     public void update(Emp emp);
 
+
     //根据id查询员工
     @Select("select * from emp where id=#{id}")
     public Emp select(Integer id);
@@ -42,5 +43,14 @@ public  int insert(Emp emp);
 //            "and entrydate between #{begin} and #{end} order by update_time desc")
     //使用XML映射文件进行查询
 
-    public List<Emp> list(String name, short gender, LocalDate begin,LocalDate end);
+    public List<Emp> list(String name, Short gender,LocalDate begin,LocalDate end);
+
+    //利用动态更新，动态更新员工信息，如果更新时传递有值，则更新;如果更新时没有传递值，则不更新
+//    @Update("update emp set username=#{username},name=#{name},gender=#{gender},image=#{image},job=#{job}," +
+//            "entrydate=#{entrydate},dept_id=#{deptId},update_time=#{updateTime} where id=#{id}")
+    public void update2(Emp emp);
+
+    //批量删除
+    public void deleteByIds(List<Integer> ids);
+
 }
