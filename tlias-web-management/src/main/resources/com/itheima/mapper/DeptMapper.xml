@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.itheima.mapper.DeptMapper">
+    <insert id="insertDept">
+        insert into tlilas.dept (name, create_time, update_time) VALUE (#{name},#{createTime},#{updateTime})
+    </insert>
+    <update id="updateDept">
+        update tlilas.dept set name=#{name},update_time=#{updateTime} where id=#{id}
+    </update>
+
+    <delete id="deleteDept">
+        delete from tlilas.dept where id=#{id};
+    </delete>
+
+    <select id="listdept" resultType="com.itheima.pojo.Dept">
+        select *from tlilas.dept
+    </select>
+
+    <select id="getDept" resultType="com.itheima.pojo.Dept">
+        select *from tlilas.dept where id=#{id}
+    </select>
+
+</mapper>
