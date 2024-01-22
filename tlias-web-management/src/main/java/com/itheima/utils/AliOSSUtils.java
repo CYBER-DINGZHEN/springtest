@@ -2,18 +2,23 @@ package com.itheima.utils;
 
 import com.aliyun.oss.OSS;
 import com.aliyun.oss.OSSClientBuilder;
+import lombok.Data;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.stereotype.Component;
 import org.springframework.web.multipart.MultipartFile;
 import java.io.*;
 import java.util.UUID;
+
 @Component
+
 //utils不属于任何一层，交给ioc容器时加component注解
 /**
  * 阿里云 OSS 工具类
  */
 public class AliOSSUtils {
-    //@value注解可以从配置文件中读取配置
+/*    //@value注解可以从配置文件中读取配置
     @Value("${aliyun.oss.endpoint}")
     private String endpoint;
     @Value("${aliyun.oss.accessKeyId}")
@@ -21,12 +26,17 @@ public class AliOSSUtils {
     @Value("${aliyun.oss.accessKeySecret}")
     private String accessKeySecret;
     @Value("${aliyun.oss.bucketName}")
-    private String bucketName;
-
+    private String bucketName;*/
+    @Autowired
+    AliOSSproperties aliOSSproperties;
     /**
      * 实现上传图片到OSS
      */
     public String upload(MultipartFile file) throws IOException {
+        String accessKeyId = aliOSSproperties.getAccessKeyId();
+        String accessKeySecret = aliOSSproperties.getAccessKeySecret();
+        String endpoint = aliOSSproperties.getEndpoint();
+        String bucketName = aliOSSproperties.getBucketName();
         // 获取上传的文件的输入流
         InputStream inputStream = file.getInputStream();
 
