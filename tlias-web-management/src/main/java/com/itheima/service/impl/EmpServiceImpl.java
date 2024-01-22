@@ -9,6 +9,8 @@ import com.itheima.service.EmpService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.List;
 
 @Service
@@ -41,5 +43,25 @@ public class EmpServiceImpl implements EmpService {
     @Override
     public void deleteEmp(List<Integer> ids) {
         empMapper.deleteEmp(ids);
+    }
+
+    @Override
+    public void insertEmp(Emp emp) {
+        emp.setUpdateTime(LocalDateTime.now());
+        emp.setCreateTime(LocalDateTime.now());
+        empMapper.insertEmp(emp);
+    }
+
+    @Override
+    public void updateEmp(Emp emp) {
+        emp.setUpdateTime(LocalDateTime.now());
+        empMapper.updateEmp(emp);
+    }
+
+    @Override
+    public Emp getEmp(Integer id) {
+        Emp emp = empMapper.getEmp(id);
+        emp.setUpdateTime(LocalDateTime.now());
+        return emp;
     }
 }

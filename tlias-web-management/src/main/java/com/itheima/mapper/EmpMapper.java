@@ -19,4 +19,10 @@ public interface EmpMapper {
                           String end);//员工信息查询，利用了helper插件
 
     void deleteEmp(List<Integer> ids);
+
+    void insertEmp(Emp emp);
+
+    void updateEmp(Emp emp);
+
+    Emp getEmp(Integer id);
 }
