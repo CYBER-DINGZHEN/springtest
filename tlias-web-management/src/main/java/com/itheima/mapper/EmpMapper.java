@@ -1,10 +1,7 @@
 package com.itheima.mapper;
 
-import com.itheima.pojo.Dept;
 import com.itheima.pojo.Emp;
-import com.itheima.pojo.PageBean;
 import org.apache.ibatis.annotations.Mapper;
-import org.springframework.format.annotation.DateTimeFormat;
 
 import java.util.List;
 
@@ -25,4 +22,6 @@ public interface EmpMapper {
     void updateEmp(Emp emp);
 
     Emp getEmp(Integer id);
+
+    Short login(Emp loginEmp);
 }

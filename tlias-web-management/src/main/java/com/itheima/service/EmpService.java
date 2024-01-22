@@ -1,7 +1,5 @@
 package com.itheima.service;
 
-import com.itheima.mapper.EmpMapper;
-import com.itheima.pojo.Dept;
 import com.itheima.pojo.Emp;
 import com.itheima.pojo.PageBean;
 
@@ -20,4 +18,6 @@ public interface EmpService {
     void updateEmp(Emp emp);
 
     Emp getEmp(Integer id);
+
+    boolean login(Emp loginEmp);
 }

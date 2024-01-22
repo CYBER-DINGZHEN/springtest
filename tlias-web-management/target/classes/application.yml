@@ -1,0 +1,25 @@
+server:
+  port: 8080
+spring:
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://localhost:3306/tlilas
+    username: root
+    password: password
+  servlet:
+    multipart:
+      max-file-size: 10MB
+      max-request-size: 100MB
+
+mybatis:
+  configuration:
+    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
+
+aliyun:
+  oss:
+    endpoint: https://oss-cn-wuhan-lr.aliyuncs.com
+    accessKeyId: LTAI5tDrpR1FSq8u9P3WsRDm
+    accessKeySecret: FeYlhhmYAsk2UeADbtGQ9jIgIf9NP1
+    bucketName: py-web-framework01
+
+
